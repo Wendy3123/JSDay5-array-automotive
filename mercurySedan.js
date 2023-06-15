@@ -1,65 +1,62 @@
 //this includes the vehicle class as a module
 const VehicleModule = require("./vehicleBaseClass")
 
+//this shows how to call from this module...
+let v = new VehicleModule.Vehicle("Mercury", "Sedan", "1965", "color", "mileage");
+console.log(v.make)
 
 class Car extends VehicleModule.Vehicle{
-    constructor(make, model, year, color, mileage){
-        super(make, model, year, color, mileage)
-        this.maximumPassengers = 5
-        this.passengers = 0
-        this.numberofWheels = 4
-        this.maximumSpeed = 160
-        this.fuel = 10
+    constructor(make,model,year,color,mileage){
+        super(make,model,year,color,mileage)
+        this.maxPassengers = 5
+        this.passenger = 0
+        this.numberOfWheels = 4
+        this.maxSpeed = 160
+        this.fuel= 10
         this.scheduleService = false
+        this.started= false
     }
-    start() {
-        if (this.fuel > 0) {
-            return this.started = true;
-            console.log("engine started...!!!");
-        } else {
-            return this.started = false;
-            console.log("engine cannot start...");
+    start(){
+        if(this.fuel>0){
+            console.log('engine started...')
+            return this.started = true
+        }
+        else{
+            console.log('engine cannot start ...')
+            return this.started = false
         }
     }
-    scheduleServiceforVehicle(){
-        if(this.mileage > 30000){
-            this.scheduleService =true
+    maintainService(mileage){
+        if(mileage > 30000){
+            console.log('Schedule for service')
+            this.scheduleService = true
             return this.scheduleService
         }
-    }
-    loadPassengers(totalnum){
-        if(this.passengers < this.maximumPassengers){
-            if((totalnum + this.passengers) <= this.maximumPassengers){
-                this.passengers = totalnum
-                return this.passengers
-            }
-            else{
-                console.log(`${this.model} ${this.make} does not have enough space to take all passengers.`)
-            }
-        }else{
-            console.log(`${this.model}  ${this.make} is full`);
+        else{
+            console.log('no service needed')
         }
-    } 
+    }
+    passengerCount(passenger,maxPassengers){
+        if(passenger>maxPassengers){
+            console.log(`sorry, this vehicle can only hold up to ${maxPassengers} passengers`)
+        }
+        else{
+            console.log(`welcome aboard! ${passenger} passengers can fit in our max capacity of ${maxPassengers} passengers` )
+
+        }
+    }
 }
 
+let pinkM = new Car ('Mercedes','S580','2023','pink','10041')
+pinkM.start()
+pinkM.maintainService()
+pinkM.passengerCount(5,4)
+pinkM.passengerCount(2,4)
 //After you write the derived Car class, you should test it out.
+//Note: You can code your derived Car class here or make a file named index.js and do it there.
+
+
 //TO DO: Code the Car subclass here or in index.js file, i.e. class Car extends Vehicle ...
-
-
-
 //TO DO: Creating Instances and Testing Them
-
 //You can use the same instance "v" of the Vehicle class above for the base class.
-
-let v = new Car("Mercury", "Sedan", "1965", "color", "mileage");
-console.log(v.make)
-v.start()
-v.loadPassengers(5)
-v.stop()
-v.checkService()
-
-console.log(v)
-
-
-
 //Create at least two new instances of the Car class and test them here:
